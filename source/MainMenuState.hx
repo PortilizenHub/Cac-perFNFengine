@@ -92,7 +92,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, null, 0.06);
 
-		var cVersionShit:FlxText = new FlxText(5, FlxG.height - 38, 0, "Cac-per FNF Engine V0.1.0.3", 12);
+		var cVersionShit:FlxText = new FlxText(5, FlxG.height - 38, 0, "Cac-per FNF Engine V0.1.0", 12);
 		cVersionShit.scrollFactor.set();
 		cVersionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(cVersionShit);
