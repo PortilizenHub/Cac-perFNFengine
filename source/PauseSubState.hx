@@ -17,7 +17,7 @@ class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Exit to menu'];
+	var menuItems:Array<String> = ['Resume', 'Restart Song'];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
@@ -30,6 +30,8 @@ class PauseSubState extends MusicBeatSubstate
 			menuItems.push('Exit to Story Mode');
 		else if (HelpfulVariables.songLoadedFromFreeplay == true)
 			menuItems.push('Exit to Freeplay');
+		menuItems.push('Exit to Chart Editor');
+		menuItems.push('Exit to menu');
 
 		pauseMusic = new FlxSound().loadEmbedded(Paths.music('breakfast'), true, true);
 		pauseMusic.volume = 0;
@@ -116,6 +118,8 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.switchState(new StoryMenuState());
 				case "Exit to Freeplay":
 					FlxG.switchState(new FreeplayState());
+				case "Exit to Chart Editor":
+					FlxG.switchState(new ChartingState());
 				case "Exit to menu":
 					FlxG.switchState(new MainMenuState());
 			}

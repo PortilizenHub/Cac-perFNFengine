@@ -499,11 +499,14 @@ class Character extends FlxSprite
 
 		dance();
 
+		
 		if (isPlayer)
 		{
 			flipX = !flipX;
-
+		}
+		
 			// Doesn't flip for BF, since his are already in the right place???
+			/*
 			if (!curCharacter.startsWith('bf'))
 			{
 				// var animArray
@@ -520,10 +523,31 @@ class Character extends FlxSprite
 				}
 			}
 		}
+		*/
 	}
 
 	override function update(elapsed:Float)
 	{
+		if (!isPlayer)
+			{
+				if (animation.curAnim.name.startsWith('sing'))
+				{
+					holdTimer += elapsed;
+				}
+	
+				if (holdTimer >= Conductor.stepCrochet * 4 * 0.001)
+				{
+					if (animation.curAnim.name.startsWith('sing'))
+					{
+						dance();
+					}
+	
+					holdTimer = 0;
+				}
+			}
+
+			
+		/*
 		if (!curCharacter.startsWith('bf'))
 		{
 			if (animation.curAnim.name.startsWith('sing'))
@@ -541,6 +565,7 @@ class Character extends FlxSprite
 				holdTimer = 0;
 			}
 		}
+		*/
 
 		switch (curCharacter)
 		{
