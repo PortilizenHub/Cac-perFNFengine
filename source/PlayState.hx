@@ -114,8 +114,7 @@ class PlayState extends MusicBeatState
 
 	var talking:Bool = true;
 	var songScore:Int = 0;
-	var songMiss:Int = 0;
-	var hudTxt:FlxText;
+	var scoreTxt:FlxText;
 
 	public static var campaignScore:Int = 0;
 
@@ -576,10 +575,8 @@ class PlayState extends MusicBeatState
 		{
 			case 'limo':
 				gfVersion = 'gf-car';
-			case 'mall':
+			case 'mall' | 'mallEvil':
 				gfVersion = 'gf-christmas';
-			case 'mallEvil':
-			gfVersion = 'gf-christmas-evil';
 			case 'school':
 				gfVersion = 'gf-pixel';
 			case 'schoolEvil':
@@ -736,10 +733,10 @@ class PlayState extends MusicBeatState
 		// healthBar
 		add(healthBar);
 
-		hudTxt = new FlxText(healthBarBG.x + healthBarBG.width - 580, healthBarBG.y + 30, 0, "", 20);
-		hudTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
-		hudTxt.scrollFactor.set();
-		add(hudTxt);
+		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
+		scoreTxt.scrollFactor.set();
+		add(scoreTxt);
 
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
@@ -755,7 +752,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
-		hudTxt.cameras = [camHUD];
+		scoreTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
@@ -777,7 +774,6 @@ class PlayState extends MusicBeatState
 
 					new FlxTimer().start(0.1, function(tmr:FlxTimer)
 					{
-						remove(gf);
 						remove(blackScreen);
 						FlxG.sound.play(Paths.sound('Lights_Turn_On'));
 						camFollow.y = -2050;
@@ -793,7 +789,6 @@ class PlayState extends MusicBeatState
 								ease: FlxEase.quadInOut,
 								onComplete: function(twn:FlxTween)
 								{
-									boyfriend.playAnim('singRIGHTmiss', true);
 									startCountdown();
 								}
 							});
@@ -814,9 +809,6 @@ class PlayState extends MusicBeatState
 		{
 			switch (curSong.toLowerCase())
 			{
-				case 'winter-horrorland':
-					boyfriend.playAnim('singRIGHTmiss', true);
-					startCountdown();
 				default:
 					startCountdown();
 			}
@@ -1372,7 +1364,7 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		hudTxt.text = "Score:" + songScore + " | Misses:" + songMiss;
+		scoreTxt.text = "Score:" + songScore;
 
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
@@ -2150,7 +2142,6 @@ class PlayState extends MusicBeatState
 			}
 			combo = 0;
 
-			songMiss += 1;
 			songScore -= 10;
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));

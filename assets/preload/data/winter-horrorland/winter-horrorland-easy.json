@@ -1,4 +1,4 @@
-f{
+{
     "song": {
         "song": "Winter-Horrorland",
         "notes": [
@@ -2414,7 +2414,7 @@ f{
         "bpm": 159,
         "sections": 0,
         "needsVoices": true,
-        "player1": "bf-christmas-evil",
+        "player1": "bf-christmas",
         "player2": "monster-christmas",
         "sectionLengths": [],
         "speed": 1,

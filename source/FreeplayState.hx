@@ -35,6 +35,12 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
+		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
+
+		for (i in 0...initSonglist.length)
+		{
+			songs.push(new SongMetadata(initSonglist[i], 1, 'gf'));
+		}
 
 		/* 
 			if (FlxG.sound.music != null)
@@ -55,9 +61,7 @@ class FreeplayState extends MusicBeatState
 		isDebug = true;
 		#end
 
-
-		if (StoryMenuState.weekUnlocked[1] || isDebug)
-			addWeek(['Tutorial'], 1, ['gf']);
+		if (StoryMenuState.weekUnlocked[2] || isDebug)
 			addWeek(['Bopeebo', 'Fresh', 'Dadbattle'], 1, ['dad']);
 
 		if (StoryMenuState.weekUnlocked[2] || isDebug)
