@@ -9,6 +9,7 @@ bf-car
 parents-christmas
 monster-christmas
 bf-christmas
+bf-christmas-evil
 gf-christmas
 gf-christmas-evil
 monster

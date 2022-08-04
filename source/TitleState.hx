@@ -286,24 +286,10 @@ class TitleState extends MusicBeatState
 			transitioning = true;
 			// FlxG.sound.music.stop();
 
-			
-				trace('checking for update');
-				var version = Paths.txt('version.txt');
-				var http = new haxe.Http("https://raw.githubusercontent.com/ShadowMario/FNF-PsychEngine/main/gitVersion.txt");
-	
-				http.onData = function (data:String)
-				{
-					var updateVersion = data.split('\n')[0].trim();
-					var curVersion:String = version;
-					trace('version online: ' + updateVersion + ', your version: ' + curVersion);
-					if(updateVersion != curVersion) {
-						trace('versions arent matching!');
-						FlxG.switchState(new OutdatedSubState);
-					}
-				}
-					
-				FlxG.switchState(new MainMenuState());
-				
+			new FlxTimer().start(2, function(tmr:FlxTimer)
+			{
+					FlxG.switchState(new MainMenuState());
+			});
 			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 		}
 

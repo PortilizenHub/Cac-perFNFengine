@@ -736,6 +736,11 @@ class PlayState extends MusicBeatState
 		// healthBar
 		add(healthBar);
 
+		hudTxt = new FlxText(healthBarBG.x + healthBarBG.width - 580, healthBarBG.y + 30, 0, "", 20);
+		hudTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
+		hudTxt.scrollFactor.set();
+		add(hudTxt);
+
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		add(iconP1);
@@ -743,14 +748,6 @@ class PlayState extends MusicBeatState
 		iconP2 = new HealthIcon(SONG.player2, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
-
-		hudTxt = new FlxText(healthBarBG.x + healthBarBG.width - 500, healthBarBG.y + 30, 0, "", 48);
-		hudTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
-        hudTxt.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);
-		hudTxt.scrollFactor.set();
-		add(hudTxt);
-
-
 
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1434,17 +1431,12 @@ class PlayState extends MusicBeatState
 			iconP2.animation.curAnim.curFrame = 0;
 
 		/* if (FlxG.keys.justPressed.NINE)
-			FlxG.switchState(new Charting()); 
+			FlxG.switchState(new Charting()); */
 
 		#if debug
 		if (FlxG.keys.justPressed.EIGHT)
 			FlxG.switchState(new AnimationDebug(SONG.player2));
-
-		#if desktop
-			DiscordClient.changePresence("Animation Debug", null, null, true);
-			#end
 		#end
-		*/
 
 		if (startingSong)
 		{
