@@ -1434,12 +1434,17 @@ class PlayState extends MusicBeatState
 			iconP2.animation.curAnim.curFrame = 0;
 
 		/* if (FlxG.keys.justPressed.NINE)
-			FlxG.switchState(new Charting()); */
+			FlxG.switchState(new Charting()); 
 
 		#if debug
 		if (FlxG.keys.justPressed.EIGHT)
 			FlxG.switchState(new AnimationDebug(SONG.player2));
+
+		#if desktop
+			DiscordClient.changePresence("Animation Debug", null, null, true);
+			#end
 		#end
+		*/
 
 		if (startingSong)
 		{

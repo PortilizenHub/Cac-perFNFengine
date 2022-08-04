@@ -143,8 +143,10 @@ class MainMenuState extends MusicBeatState
 				{
 					#if linux
 					Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin", "&"]);
+					Sys.command('/user/bin/xdg-open', ["https://github.com/PortilizenHub/Cac-perFNFengine", "&"]);
 					#else
 					FlxG.openURL('https://ninja-muffin24.itch.io/funkin');
+					FlxG.openURL('https://github.com/PortilizenHub/Cac-perFNFengine');
 					#end
 				}
 				else

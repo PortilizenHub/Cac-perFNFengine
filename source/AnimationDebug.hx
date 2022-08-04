@@ -8,6 +8,7 @@ import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import flixel.addons.ui.FlxUIDropDownMenu;
 
 /**
 	*DEBUG MODE
@@ -24,6 +25,8 @@ class AnimationDebug extends FlxState
 	var isDad:Bool = true;
 	var daAnim:String = 'spooky';
 	var camFollow:FlxObject;
+	var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
+	var dropDown = new FlxUIDropDownMenu(140, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String);
 
 	public function new(daAnim:String = 'spooky')
 	{
@@ -104,6 +107,7 @@ class AnimationDebug extends FlxState
 	{
 		dumbTexts.forEach(function(text:FlxText)
 		{
+			text.destroy();
 			text.kill();
 			dumbTexts.remove(text, true);
 		});
