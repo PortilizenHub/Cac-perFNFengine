@@ -117,6 +117,12 @@ class AnimationDebug extends FlxState
 			FlxG.camera.zoom += 0.25;
 		if (FlxG.keys.justPressed.Q)
 			FlxG.camera.zoom -= 0.25;
+		if (FlxG.keys.justPressed.ESCAPE)
+			if (HelpfulVariables.songLoadedFromStoryMode == true)
+				FlxG.switchState(new StoryMenuState());
+			else if (HelpfulVariables.songLoadedFromFreeplay == true)
+				FlxG.switchState(new FreeplayState());
+
 
 		if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L)
 		{

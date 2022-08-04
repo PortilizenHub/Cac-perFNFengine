@@ -35,6 +35,7 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
+		HelpfulVariables.songLoadedFromFreeplay = false;
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
 		for (i in 0...initSonglist.length)
@@ -217,6 +218,7 @@ class FreeplayState extends MusicBeatState
 
 		if (accepted)
 		{
+			HelpfulVariables.songLoadedFromFreeplay = true;
 			var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 
 			trace(poop);

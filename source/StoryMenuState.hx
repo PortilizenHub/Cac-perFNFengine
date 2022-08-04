@@ -1,5 +1,9 @@
 package;
 
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+#end
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -31,6 +35,7 @@ class StoryMenuState extends MusicBeatState
 		['Cocoa', 'Eggnog', 'Winter-Horrorland'],
 		['Senpai', 'Roses', 'Thorns']
 	];
+
 	var curDifficulty:Int = 1;
 
 	public static var weekUnlocked:Array<Bool> = [true, true, true, true, true, true, true];
@@ -55,6 +60,8 @@ class StoryMenuState extends MusicBeatState
 		"hating simulator ft. moawling"
 	];
 
+	//var week = [];
+
 	var txtWeekTitle:FlxText;
 
 	var curWeek:Int = 0;
@@ -73,6 +80,7 @@ class StoryMenuState extends MusicBeatState
 
 	override function create()
 	{
+		HelpfulVariables.songLoadedFromStoryMode = false;
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -132,13 +140,7 @@ class StoryMenuState extends MusicBeatState
 			// Needs an offset thingie
 			if (!weekUnlocked[i])
 			{
-				var lock:FlxSprite = new FlxSprite(weekThing.width + 10 + weekThing.x);
-				lock.frames = ui_tex;
-				lock.animation.addByPrefix('lock', 'lock');
-				lock.animation.play('lock');
-				lock.ID = i;
-				lock.antialiasing = true;
-				grpLocks.add(lock);
+				weekUnlocked[i]; // close enough
 			}
 		}
 
@@ -186,10 +188,10 @@ class StoryMenuState extends MusicBeatState
 
 		sprDifficulty = new FlxSprite(leftArrow.x + 130, leftArrow.y);
 		sprDifficulty.frames = ui_tex;
-		sprDifficulty.animation.addByPrefix('easy', 'EASY');
-		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
-		sprDifficulty.animation.addByPrefix('hard', 'HARD');
-		sprDifficulty.animation.play('easy');
+		for (i in 0...CoolUtil.difficultyArray.length) {
+			sprDifficulty.animation.addByPrefix(CoolUtil.difficultyArray[i].toLowerCase(), CoolUtil.difficultyArray[i]);
+		}
+		sprDifficulty.animation.play(CoolUtil.difficultyArray[0]);
 		changeDifficulty();
 
 		difficultySelectors.add(sprDifficulty);
@@ -273,6 +275,8 @@ class StoryMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
+				HelpfulVariables.songLoadedFromStoryMode = true;
+				FlxG.sound.music.fadeOut(1, 0);
 				selectWeek();
 			}
 		}
@@ -299,7 +303,9 @@ class StoryMenuState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
-				grpWeekText.members[curWeek].startFlashing();
+				if (!FlxG.save.data.epilepsyMode) {
+					grpWeekText.members[curWeek].startFlashing();
+				}
 				grpWeekCharacters.members[1].animation.play('bfConfirm');
 				stopspamming = true;
 			}
@@ -310,12 +316,10 @@ class StoryMenuState extends MusicBeatState
 
 			var diffic = "";
 
-			switch (curDifficulty)
-			{
-				case 0:
-					diffic = '-easy';
-				case 2:
-					diffic = '-hard';
+			if (CoolUtil.difficultyArray.contains('NORMAL') && CoolUtil.difficultyArray[curDifficulty] == 'NORMAL') {
+				diffic = '';
+			} else {
+				diffic = '-' + CoolUtil.difficultyArray[curDifficulty].toLowerCase();
 			}
 
 			PlayState.storyDifficulty = curDifficulty;
@@ -335,22 +339,21 @@ class StoryMenuState extends MusicBeatState
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
+			curDifficulty = CoolUtil.difficultyArray.length - 1;
+		if (curDifficulty > CoolUtil.difficultyArray.length - 1)
 			curDifficulty = 0;
 
 		sprDifficulty.offset.x = 0;
 
+		sprDifficulty.animation.play(CoolUtil.difficultyArray[curDifficulty].toLowerCase());
+
 		switch (curDifficulty)
 		{
 			case 0:
-				sprDifficulty.animation.play('easy');
 				sprDifficulty.offset.x = 20;
 			case 1:
-				sprDifficulty.animation.play('normal');
 				sprDifficulty.offset.x = 70;
 			case 2:
-				sprDifficulty.animation.play('hard');
 				sprDifficulty.offset.x = 20;
 		}
 
@@ -401,7 +404,7 @@ class StoryMenuState extends MusicBeatState
 		grpWeekCharacters.members[0].animation.play(weekCharacters[curWeek][0]);
 		grpWeekCharacters.members[1].animation.play(weekCharacters[curWeek][1]);
 		grpWeekCharacters.members[2].animation.play(weekCharacters[curWeek][2]);
-		txtTracklist.text = "Tracks\n";
+		txtTracklist.text = "Tracks\n\n";
 
 		switch (grpWeekCharacters.members[0].animation.curAnim.name)
 		{
@@ -420,6 +423,10 @@ class StoryMenuState extends MusicBeatState
 			case 'dad':
 				grpWeekCharacters.members[0].offset.set(120, 200);
 				grpWeekCharacters.members[0].setGraphicSize(Std.int(grpWeekCharacters.members[0].width * 1));
+			
+			case 'tankman':
+				grpWeekCharacters.members[0].offset.set(0, -75);
+				grpWeekCharacters.members[0].setGraphicSize(Std.int(grpWeekCharacters.members[0].width * 1.3));
 
 			default:
 				grpWeekCharacters.members[0].offset.set(100, 100);
@@ -431,7 +438,7 @@ class StoryMenuState extends MusicBeatState
 
 		for (i in stringThing)
 		{
-			txtTracklist.text += "\n" + i;
+			txtTracklist.text += i + "\n";
 		}
 
 		txtTracklist.text = txtTracklist.text.toUpperCase();

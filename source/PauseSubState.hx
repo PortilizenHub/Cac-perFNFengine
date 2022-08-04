@@ -26,6 +26,11 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		super();
 
+		if (HelpfulVariables.songLoadedFromStoryMode == true)
+			menuItems.push('Exit to Story Mode');
+		else if (HelpfulVariables.songLoadedFromFreeplay == true)
+			menuItems.push('Exit to Freeplay');
+
 		pauseMusic = new FlxSound().loadEmbedded(Paths.music('breakfast'), true, true);
 		pauseMusic.volume = 0;
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
@@ -107,6 +112,10 @@ class PauseSubState extends MusicBeatSubstate
 					close();
 				case "Restart Song":
 					FlxG.resetState();
+				case "Exit to Story Mode":
+					FlxG.switchState(new StoryMenuState());
+				case "Exit to Freeplay":
+					FlxG.switchState(new FreeplayState());
 				case "Exit to menu":
 					FlxG.switchState(new MainMenuState());
 			}
