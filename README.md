@@ -1,4 +1,4 @@
-# Friday Night Funkin
+# Friday Night Funkin Cac-per Engine
 
 This is the repository for the Friday Night Funkin Cac-Per Engine.
 
@@ -10,7 +10,6 @@ IF YOU MAKE A MOD AND DISTRIBUTE A MODIFIED / RECOMPILED VERSION, YOU MUST OPEN 
 
 - Portilizen - Programmer
 - Paul Leps - Artist
-- SpunGlue - Compiler to windows
 
 ## Build instructions
 
