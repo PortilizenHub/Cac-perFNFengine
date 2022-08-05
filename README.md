@@ -2,8 +2,6 @@
 
 This is the repository for the Friday Night Funkin Cac-Per Engine.
 
-Support the project on the itch.io page: https://portilizengame.itch.io/cac-per-engine
-
 IF YOU MAKE A MOD AND DISTRIBUTE A MODIFIED / RECOMPILED VERSION, YOU MUST OPEN SOURCE YOUR MOD AS WELL
 
 ## Credits / shoutouts
