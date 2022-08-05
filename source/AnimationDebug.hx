@@ -24,6 +24,7 @@ class AnimationDebug extends FlxState
 	var isDad:Bool = true;
 	var daAnim:String = 'spooky';
 	var camFollow:FlxObject;
+	var gridBG:FlxSprite;
 
 	public function new(daAnim:String = 'spooky')
 	{
@@ -35,7 +36,7 @@ class AnimationDebug extends FlxState
 	{
 		FlxG.sound.music.stop();
 
-		var gridBG:FlxSprite = FlxGridOverlay.create(10, 10);
+		gridBG = FlxGridOverlay.create(16, 16);
 		add(gridBG);
 
 		if (daAnim == 'bf')
@@ -111,6 +112,9 @@ class AnimationDebug extends FlxState
 
 	override function update(elapsed:Float)
 	{
+		gridBG.x = 0;
+		gridBG.y = 0;
+
 		textAnim.text = char.animation.curAnim.name;
 
 		if (FlxG.keys.justPressed.E)

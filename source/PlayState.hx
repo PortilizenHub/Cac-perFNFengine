@@ -755,6 +755,11 @@ class PlayState extends MusicBeatState
 		hudTxt.scrollFactor.set();
 		add(hudTxt);
 
+		var waterTxt:FlxText = new FlxText(0, healthBarBG.y + 50, 0, "Cac-per Engine v2022.8.5", 20);
+		waterTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
+		waterTxt.scrollFactor.set();
+		add(waterTxt);
+
 
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -763,6 +768,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		hudTxt.cameras = [camHUD];
+		waterTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
 		// if (SONG.song == 'South')

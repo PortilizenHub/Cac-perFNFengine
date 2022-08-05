@@ -29,23 +29,22 @@ class FreeplayState extends MusicBeatState
 	var selector:FlxText;
 	var warning:FlxText;
 
+
 	private var iconArray:Array<HealthIcon> = [];
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
 
 	override function create()
 	{
+
+		// FlxG.sound.destroy();
+		// FlxG.sound.playMusic((Paths.music('freakyMenu')), 1, true);
+
 		warning = new FlxText(0, 0, 0, 'This song is not done, come back later when it is', 32);
 		add(warning);
 		warning.kill();
 
 		HelpfulVariables.songLoadedFromFreeplay = false;
-		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
-
-		for (i in 0...initSonglist.length)
-		{
-			songs.push(new SongMetadata(initSonglist[i], 1, 'gf'));
-		}
 
 		/* 
 			if (FlxG.sound.music != null)
@@ -65,27 +64,17 @@ class FreeplayState extends MusicBeatState
 		#if debug
 		isDebug = true;
 		#end
-
-		if (StoryMenuState.weekUnlocked[2] || isDebug)
-			addWeek(['Bopeebo', 'Fresh', 'Dadbattle'], 1, ['dad']);
-
-		if (StoryMenuState.weekUnlocked[2] || isDebug)
-			addWeek(['Spookeez', 'South'], 2, ['spooky']);
-
-		if (StoryMenuState.weekUnlocked[3] || isDebug)
-			addWeek(['Pico', 'Philly', 'Blammed'], 3, ['pico']);
-
-		if (StoryMenuState.weekUnlocked[4] || isDebug)
-			addWeek(['Satin-Panties', 'High', 'Milf'], 4, ['mom']);
-
-		if (StoryMenuState.weekUnlocked[5] || isDebug)
-			addWeek(['Cocoa', 'Eggnog', 'Winter-Horrorland'], 5, ['parents-christmas', 'parents-christmas', 'monster-christmas']);
-
-		if (StoryMenuState.weekUnlocked[6] || isDebug)
-			addWeek(['Senpai', 'Roses', 'Thorns'], 6, ['senpai', 'senpai', 'spirit']);
+		
+		addSong('Tutorial', 1, 'gf');
+		addWeek(['Bopeebo', 'Fresh', 'Dadbattle'], 1, ['dad']);
+		addWeek(['Spookeez', 'South'], 2, ['spooky']);
+		addWeek(['Pico', 'Philly', 'Blammed'], 3, ['pico']);
+		addWeek(['Satin-Panties', 'High', 'Milf'], 4, ['mom']);
+		addWeek(['Cocoa', 'Eggnog', 'Winter-Horrorland'], 5, ['parents-christmas', 'parents-christmas', 'monster-christmas']);
+		addWeek(['Senpai', 'Roses', 'Thorns'], 6, ['senpai', 'senpai', 'spirit']);
 
 		#if debug
-		addSong('test', 1, 'bf');
+		addSong('test', 1, 'face');
 		#end
 
 		// LOAD MUSIC
@@ -173,7 +162,7 @@ class FreeplayState extends MusicBeatState
 	public function addWeek(songs:Array<String>, weekNum:Int, ?songCharacters:Array<String>)
 	{
 		if (songCharacters == null)
-			songCharacters = ['bf'];
+			songCharacters = ['face'];
 
 		var num:Int = 0;
 		for (song in songs)
@@ -278,10 +267,9 @@ class FreeplayState extends MusicBeatState
 	function changeSelection(change:Int = 0)
 	{
 		#if !switch
-		NGio.logEvent('Fresh');
+		NGio.logEvent(songs[curSelected].songName);
 		#end
 
-		// NGio.logEvent('Fresh');
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 		curSelected += change;

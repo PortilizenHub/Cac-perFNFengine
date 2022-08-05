@@ -59,7 +59,7 @@ class Paths
 	{
 		return getPath('data/$key.txt', TEXT, library);
 	}
-
+	
 	inline static public function xml(key:String, ?library:String)
 	{
 		return getPath('data/$key.xml', TEXT, library);
@@ -104,6 +104,12 @@ class Paths
 	{
 		return 'assets/fonts/$key';
 	}
+
+
+	inline static public function folder(key:String, ?library:String)
+		{
+			return getPath('./$key', TEXT, library);
+		}
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
 	{

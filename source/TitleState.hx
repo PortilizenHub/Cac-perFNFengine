@@ -46,13 +46,18 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		FlxG.log.redirectTraces = true;
+
 		#if polymod
-		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
+		// polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
 		#end
 
 		PlayerSettings.init();
 
-		curWacky = FlxG.random.getObject(getIntroTextShit());
+		if (ModSubState.introModVAR == false)
+		    curWacky = FlxG.random.getObject(getIntroTextShit());
+		else if (ModSubState.introModVAR == true)
+			curWacky = FlxG.random.getObject(getModIntroTextShit());
 
 		// DEBUG BULLSHIT
 
@@ -218,19 +223,34 @@ class TitleState extends MusicBeatState
 	}
 
 	function getIntroTextShit():Array<Array<String>>
-	{
-		var fullText:String = Assets.getText(Paths.txt('introText'));
-
-		var firstArray:Array<String> = fullText.split('\n');
-		var swagGoodArray:Array<Array<String>> = [];
-
-		for (i in firstArray)
 		{
-			swagGoodArray.push(i.split('--'));
+			var fullText:String = Assets.getText(Paths.txt('introText'));
+	
+			var firstArray:Array<String> = fullText.split('\n');
+			var swagGoodArray:Array<Array<String>> = [];
+	
+			for (i in firstArray)
+			{
+				swagGoodArray.push(i.split('--'));
+			}
+	
+			return swagGoodArray;
 		}
 
-		return swagGoodArray;
-	}
+	function getModIntroTextShit():Array<Array<String>>
+		{
+			var fullText:String = Assets.getText('introMod/data/introTextMOD.txt');
+	
+			var firstArray:Array<String> = fullText.split('\n');
+			var swagGoodArray:Array<Array<String>> = [];
+	
+			for (i in firstArray)
+			{
+				swagGoodArray.push(i.split('--'));
+			}
+	
+			return swagGoodArray;
+		}
 
 	var transitioning:Bool = false;
 
@@ -369,7 +389,7 @@ class TitleState extends MusicBeatState
 		switch (curBeat)
 		{
 			case 1:
-				createCoolText(['portilizen', 'paul leps', 'bsod']);
+				createCoolText(['portilizen', 'paul leps', 'justy', 'gamersplitls', 'ferkeshu', 'bsod']);
 			// credTextShit.visible = true;
 			case 3:
 				addMoreText('present');

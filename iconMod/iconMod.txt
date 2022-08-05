@@ -1,0 +1,1 @@
+icon mod is a mod that changes the icons alpha to be 0, aka blank in gameplay.

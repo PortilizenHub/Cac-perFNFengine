@@ -8,7 +8,7 @@ import flixel.util.FlxColor;
 
 class OptionsSubState extends MusicBeatSubstate
 {
-	var textMenuItems:Array<String> = [];
+	var textMenuItems:Array<String> = ['Mods'];
 
 	var selector:FlxSprite;
 	var curSelected:Int = 0;
@@ -19,19 +19,16 @@ class OptionsSubState extends MusicBeatSubstate
 	{
 		super();
 
-
-		FlxG.watch.addQuick("Selected", curSelected);
-
 		grpOptionsTexts = new FlxTypedGroup<FlxText>();
 		add(grpOptionsTexts);
 
 		selector = new FlxSprite().makeGraphic(5, 5, FlxColor.RED);
+		add(selector);
 
 		for (i in 0...textMenuItems.length)
 		{
-			var optionText:FlxText = new FlxText(20, 20 + (i * 50), 0, textMenuItems[i], 32);
+			var optionText:FlxText = new FlxText(20, 20 + (i * 80), 0, textMenuItems[i], 32);
 			optionText.ID = i;
-			optionText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE);
 			grpOptionsTexts.add(optionText);
 		}
 	}
@@ -39,6 +36,9 @@ class OptionsSubState extends MusicBeatSubstate
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+        if (FlxG.keys.justReleased.ESCAPE)
+            FlxG.switchState(new MainMenuState());
 
 		if (controls.UP_P)
 			curSelected -= 1;
@@ -64,8 +64,13 @@ class OptionsSubState extends MusicBeatSubstate
 		{
 			switch (textMenuItems[curSelected])
 			{
-				case "Keybinds":
-					
+				case "Controls":
+					FlxG.state.closeSubState();
+					FlxG.state.openSubState(new ControlsSubState());
+
+				case "Mods":
+					FlxG.state.closeSubState();
+					FlxG.state.openSubState(new ModSubState());
 			}
 		}
 	}
