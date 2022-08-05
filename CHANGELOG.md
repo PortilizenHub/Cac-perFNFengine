@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Ninjamuffin_99's code
 
-## [0.2.0] - 2022-08-06
+## [0.2.0] - 2022-08-04
 ### Added
 - Helpful Functions file shit
 - dialogue Background (doesnt do shit yet)
