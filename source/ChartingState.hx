@@ -83,6 +83,27 @@ class ChartingState extends MusicBeatState
 
 	override function create()
 	{
+		/*
+		var text:String = '';
+		text =
+		"W/S or Mouse Wheel - Change Conductor's strum time
+		\n
+		\nEnter - Play your chart
+		\nQ/E - Decrease/Increase Note Sustain Length
+		\nSpace - Stop/Resume song";
+
+		var tipTextArray:Array<String> = text.split('\n');
+		for (i in 0...tipTextArray.length) {
+			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
+			tipText.y += i * 12;
+			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			tipText.borderSize = 2;
+			tipText.scrollFactor.set();
+			add(tipText);
+		}
+		*/
+	
+
 		curSection = lastSection;
 
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 8, GRID_SIZE * 16);

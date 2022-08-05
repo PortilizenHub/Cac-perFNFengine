@@ -87,6 +87,8 @@ class TitleState extends MusicBeatState
 		FlxG.switchState(new FreeplayState());
 		#elseif CHARTING
 		FlxG.switchState(new ChartingState());
+		#elseif ANIMtest
+		FlxG.switchState(new AnimationDebug('bf'));
 		#else
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
@@ -367,7 +369,7 @@ class TitleState extends MusicBeatState
 		switch (curBeat)
 		{
 			case 1:
-				createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
+				createCoolText(['portilizen', 'paul leps', 'bsod']);
 			// credTextShit.visible = true;
 			case 3:
 				addMoreText('present');

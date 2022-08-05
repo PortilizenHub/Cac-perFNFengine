@@ -19,22 +19,26 @@ class FreeplayState extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
 
-	var selector:FlxText;
 	var curSelected:Int = 0;
 	var curDifficulty:Int = 1;
-
-	var scoreText:FlxText;
-	var diffText:FlxText;
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 
+	var scoreText:FlxText;
+	var diffText:FlxText;
+	var selector:FlxText;
+	var warning:FlxText;
+
+	private var iconArray:Array<HealthIcon> = [];
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
 
-	private var iconArray:Array<HealthIcon> = [];
-
 	override function create()
 	{
+		warning = new FlxText(0, 0, 0, 'This song is not done, come back later when it is', 32);
+		add(warning);
+		warning.kill();
+
 		HelpfulVariables.songLoadedFromFreeplay = false;
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
@@ -66,7 +70,7 @@ class FreeplayState extends MusicBeatState
 			addWeek(['Bopeebo', 'Fresh', 'Dadbattle'], 1, ['dad']);
 
 		if (StoryMenuState.weekUnlocked[2] || isDebug)
-			addWeek(['Spookeez', 'South', 'Monster'], 2, ['spooky']);
+			addWeek(['Spookeez', 'South'], 2, ['spooky']);
 
 		if (StoryMenuState.weekUnlocked[3] || isDebug)
 			addWeek(['Pico', 'Philly', 'Blammed'], 3, ['pico']);
@@ -79,6 +83,10 @@ class FreeplayState extends MusicBeatState
 
 		if (StoryMenuState.weekUnlocked[6] || isDebug)
 			addWeek(['Senpai', 'Roses', 'Thorns'], 6, ['senpai', 'senpai', 'spirit']);
+
+		#if debug
+		addSong('test', 1, 'bf');
+		#end
 
 		// LOAD MUSIC
 
@@ -222,6 +230,9 @@ class FreeplayState extends MusicBeatState
 			var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 
 			trace(poop);
+			if (poop != 'test')
+			{
+
 
 			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 			PlayState.isStoryMode = false;
@@ -230,6 +241,13 @@ class FreeplayState extends MusicBeatState
 			PlayState.storyWeek = songs[curSelected].week;
 			trace('CUR WEEK' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new PlayState());
+		    }
+			if (poop == 'test')
+			{
+				warning.revive();
+				warning.alpha = 100;
+				warningFade();
+			}
 		}
 	}
 
@@ -307,6 +325,18 @@ class FreeplayState extends MusicBeatState
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
+	}
+
+	function warningFade()
+	{
+			if (warning.alpha != 0)
+			{
+				warning.alpha -= 0.5;
+			}
+			if (warning.alpha == 0)
+			{
+				warning.kill();
+			}
 	}
 }
 

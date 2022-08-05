@@ -36,7 +36,6 @@ class AnimationDebug extends FlxState
 		FlxG.sound.music.stop();
 
 		var gridBG:FlxSprite = FlxGridOverlay.create(10, 10);
-		gridBG.scrollFactor.set(0.5, 0.5);
 		add(gridBG);
 
 		if (daAnim == 'bf')
@@ -91,6 +90,7 @@ class AnimationDebug extends FlxState
 			var text:FlxText = new FlxText(10, 20 + (18 * daLoop), 0, anim + ": " + offsets, 15);
 			text.scrollFactor.set();
 			text.color = FlxColor.BLUE;
+			FlxG.log.add(text.text);
 			dumbTexts.add(text);
 
 			if (pushList)
@@ -122,6 +122,8 @@ class AnimationDebug extends FlxState
 				FlxG.switchState(new StoryMenuState());
 			else if (HelpfulVariables.songLoadedFromFreeplay == true)
 				FlxG.switchState(new FreeplayState());
+			else if (!HelpfulVariables.songLoadedFromStoryMode == true && !HelpfulVariables.songLoadedFromFreeplay == true)
+				FlxG.switchState(new MainMenuState());
 
 
 		if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L)

@@ -93,6 +93,7 @@ class PlayState extends MusicBeatState
 	private var camGame:FlxCamera;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
+	var dialogueBG:String = 'stage';
 
 	var halloweenBG:FlxSprite;
 	var isHalloween:Bool = false;
@@ -162,8 +163,10 @@ class PlayState extends MusicBeatState
 		switch (SONG.song.toLowerCase())
 		{
 			case 'tutorial':
+				dialogueBG = 'stage';
 				dialogue = ["Hey you're pretty cute.", 'Use the arrow keys to keep up \nwith me singing.'];
 			case 'bopeebo':
+				dialogueBG = 'stage';
 				dialogue = [
 					'HEY!',
 					"You think you can just sing\nwith my daughter like that?",
@@ -171,18 +174,23 @@ class PlayState extends MusicBeatState
 					"You're going to have to go \nthrough ME first!"
 				];
 			case 'fresh':
+				dialogueBG = 'stage';
 				dialogue = ["Not too shabby boy.", ""];
 			case 'dadbattle':
+				dialogueBG = 'stage';
 				dialogue = [
 					"gah you think you're hot stuff?",
 					"If you can beat me here...",
 					"Only then I will even CONSIDER letting you\ndate my daughter!"
 				];
 			case 'senpai':
+				dialogueBG = 'school';
 				dialogue = CoolUtil.coolTextFile(Paths.txt('senpai/senpaiDialogue'));
 			case 'roses':
+				dialogueBG = 'school';
 				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
 			case 'thorns':
+				dialogueBG = 'schoolEvil';
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
 		}
 
@@ -1528,6 +1536,7 @@ class PlayState extends MusicBeatState
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
 		}
 
+		FlxG.watch.addQuick("health", health);
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
 

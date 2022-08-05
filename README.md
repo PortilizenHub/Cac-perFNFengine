@@ -9,6 +9,8 @@ IF YOU MAKE A MOD AND DISTRIBUTE A MODIFIED / RECOMPILED VERSION, YOU MUST OPEN 
 ## Credits / shoutouts
 
 - Portilizen - Programmer
+- Ferkeshu - Music
+- BSOD - Windows Compiling
 - Paul Leps - Artist
 
 ## Build instructions
